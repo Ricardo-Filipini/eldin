@@ -3,13 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infográfico: Elder Gualberto Alves</title>
+    <title>Linha do Tempo de Elder Gualberto Alves na UFG</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        .timeline-item {
+            position: relative;
+            padding: 20px 0;
+            border-left: 2px solid #3b82f6; /* Blue-500 */
+            margin-left: 20px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #3b82f6; /* Blue-500 */
+            left: -7px;
+            top: 25px;
+        }
+        .timeline-content {
+            background: #e0f2f7; /* Light Blue */
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-left: 20px;
+        }
+        .year {
+            font-weight: bold;
+            color: #1e3a8a; /* Dark Blue */
+            margin-bottom: 5px;
+        }
+        .event-name {
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600; /* semibold */
+            color: #0d3b66; /* Even darker blue */
+            margin-bottom: 5px;
+        }
+        .event-description {
+            color: #4a5568; /* Gray-700 */
+            font-size: 0.875rem; /* text-sm */
+        }
+        /* Tooltip styles */
         .tooltip {
             position: relative;
             display: inline-block;
         }
+
         .tooltip .tooltiptext {
             visibility: hidden;
             width: 200px;
@@ -20,12 +60,13 @@
             padding: 5px 0;
             position: absolute;
             z-index: 1;
-            bottom: 125%;
+            bottom: 125%; /* Position the tooltip above the text */
             left: 50%;
             margin-left: -100px;
             opacity: 0;
             transition: opacity 0.3s;
         }
+
         .tooltip .tooltiptext::after {
             content: "";
             position: absolute;
@@ -36,49 +77,47 @@
             border-style: solid;
             border-color: #333 transparent transparent transparent;
         }
+
         .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-    <div class="bg-white shadow-lg rounded-lg p-6 max-w-lg w-full flex flex-col items-center">
-        <h1 class="text-2xl font-bold text-blue-700 mb-4 text-center">Jornada de Elder Gualberto Alves</h1>
-        
-        <div class="relative w-full flex justify-center items-center my-4">
-            <div class="absolute w-full h-1 bg-gray-300"></div>
-            
-            <div class="flex flex-col items-center z-10">
-                <div class="w-4 h-4 bg-green-500 rounded-full border-2 border-white mb-2"></div>
-                <div class="text-sm font-semibold text-gray-700">2017</div>
-                <div class="tooltip mt-2">
-                    <button id="eventButton" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">
-                        Inscrição Homologada 🚀
-                    </button>
-                    <span class="tooltiptext text-sm p-2">Participação no Processo Seletivo da Liga de Inventores da UFG (Edital 2017-1).</span>
+<body class="bg-gray-100 p-4 font-sans">
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold text-center text-blue-800 mb-6">Linha do Tempo de Elder Gualberto Alves na UFG</h1>
+
+        <div class="timeline-container">
+            <!-- Event 2010 -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="year">2010 🗓️</div>
+                    <div class="event-name tooltip">
+                        XIX Olimpíada de Matemática do Estado de Goiás
+                        <span class="tooltiptext">Mencionado na lista de participantes/resultados do Nível 3.</span>
+                    </div>
+                    <div class="event-description">Participação em evento acadêmico promovido pelo Instituto de Matemática e Estatística da UFG.</div>
+                </div>
+            </div>
+
+            <!-- Event 2017 -->
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="year">2017 📅</div>
+                    <div class="event-name tooltip">
+                        Processo Seletivo da Liga de Inventores da UFG
+                        <span class="tooltiptext">Inscrição homologada para o Edital 2017-1.</span>
+                    </div>
+                    <div class="event-description">Inscrição homologada em processo seletivo para fomentar a criatividade e inovação.</div>
                 </div>
             </div>
         </div>
 
-        <div id="detailsBox" class="bg-blue-50 p-4 rounded-lg mt-6 w-full hidden">
-            <h2 class="text-xl font-semibold text-blue-800 mb-2">Detalhes do Evento (2017)</h2>
-            <p class="text-gray-700 text-sm mb-2">
-                Em **21 de março de 2017**, Elder Gualberto Alves teve sua inscrição **homologada** no Processo Seletivo da Liga de Inventores da UFG, Edital 2017-1.
-            </p>
-            <p class="text-gray-600 text-xs italic">
-                Fonte: Documento "Resultado_HOMOLOGACAO_INTERPOSICAO_PS_Liga_Edital_2017_1.pdf"
-            </p>
-        </div>
+        <p class="text-center text-gray-600 mt-8 text-sm">
+            Esta linha do tempo apresenta os registros confirmados de Elder Gualberto Alves em documentos oficiais da UFG.
+            Informações adicionais sobre seu perfil completo não puderam ser confirmadas devido à ambiguidade de nomes similares em fontes públicas diversas.
+        </p>
     </div>
-
-    <script>
-        const eventButton = document.getElementById('eventButton');
-        const detailsBox = document.getElementById('detailsBox');
-
-        eventButton.addEventListener('click', () => {
-            detailsBox.classList.toggle('hidden');
-        });
-    </script>
 </body>
 </html>
