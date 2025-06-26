@@ -3,47 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linha do Tempo de Elder Gualberto Alves na UFG</title>
+    <title>Linha do Tempo: Elder Gualberto Alves & UFG</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .timeline-item {
+        .timeline-container {
             position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px 0;
-            border-left: 2px solid #3b82f6; /* Blue-500 */
-            margin-left: 20px;
         }
-        .timeline-item::before {
+        .timeline-line {
+            position: absolute;
+            width: 4px;
+            background-color: #3b82f6; /* Tailwind blue-500 */
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        .timeline-item {
+            padding: 10px 0;
+            position: relative;
+            width: 50%;
+        }
+        .timeline-item.left {
+            left: 0;
+            padding-right: 30px;
+            text-align: right;
+        }
+        .timeline-item.right {
+            left: 50%;
+            padding-left: 30px;
+            text-align: left;
+        }
+        .timeline-item::after {
             content: '';
             position: absolute;
-            width: 12px;
-            height: 12px;
+            width: 16px;
+            height: 16px;
+            right: -10px;
+            background-color: #d1d5db; /* Tailwind gray-300 */
+            border: 4px solid #3b82f6; /* Tailwind blue-500 */
+            top: 15px;
             border-radius: 50%;
-            background: #3b82f6; /* Blue-500 */
-            left: -7px;
-            top: 25px;
+            z-index: 1;
         }
-        .timeline-content {
-            background: #e0f2f7; /* Light Blue */
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-left: 20px;
+        .timeline-item.right::after {
+            left: -10px;
         }
-        .year {
+        .timeline-item-content {
+            padding: 20px 30px;
+            background-color: #ffffff;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+        .timeline-item-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+        .timeline-item-content h3 {
             font-weight: bold;
-            color: #1e3a8a; /* Dark Blue */
+            font-size: 1.25rem; /* Tailwind text-xl */
+            color: #1f2937; /* Tailwind gray-900 */
             margin-bottom: 5px;
         }
-        .event-name {
-            font-size: 1.125rem; /* text-lg */
-            font-weight: 600; /* semibold */
-            color: #0d3b66; /* Even darker blue */
-            margin-bottom: 5px;
+        .timeline-item-content p {
+            color: #4b5563; /* Tailwind gray-700 */
+            font-size: 0.95rem;
         }
-        .event-description {
-            color: #4a5568; /* Gray-700 */
-            font-size: 0.875rem; /* text-sm */
+        .timeline-item-content::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
         }
+        .timeline-item.right .timeline-item-content::before {
+            left: -10px;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+        }
+        .timeline-item.left .timeline-item-content::before {
+            right: -10px;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+
         /* Tooltip styles */
         .tooltip {
             position: relative;
@@ -59,10 +110,10 @@
             border-radius: 6px;
             padding: 5px 0;
             position: absolute;
-            z-index: 1;
+            z-index: 2;
             bottom: 125%; /* Position the tooltip above the text */
             left: 50%;
-            margin-left: -100px;
+            margin-left: -100px; /* Center the tooltip */
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -70,7 +121,7 @@
         .tooltip .tooltiptext::after {
             content: "";
             position: absolute;
-            top: 100%;
+            top: 100%; /* At the bottom of the tooltip */
             left: 50%;
             margin-left: -5px;
             border-width: 5px;
@@ -82,42 +133,105 @@
             visibility: visible;
             opacity: 1;
         }
+
+        /* Responsive timeline */
+        @media screen and (max-width: 768px) {
+            .timeline-line {
+                left: 20px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 50px;
+                padding-right: 0;
+            }
+            .timeline-item.left,
+            .timeline-item.right {
+                left: 0;
+                text-align: left;
+            }
+            .timeline-item::after {
+                left: 14px;
+            }
+            .timeline-item-content::before {
+                left: 30px;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+            }
+            .timeline-item.right .timeline-item-content::before {
+                left: 30px;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-100 p-4 font-sans">
-    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-        <h1 class="text-2xl font-bold text-center text-blue-800 mb-6">Linha do Tempo de Elder Gualberto Alves na UFG</h1>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <div class="container mx-auto p-8">
+        <h1 class="text-4xl font-extrabold text-center text-blue-800 mb-12">
+            🚀 Linha do Tempo: Elder Gualberto Alves & UFG
+        </h1>
 
         <div class="timeline-container">
-            <!-- Event 2010 -->
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="year">2010 🗓️</div>
-                    <div class="event-name tooltip">
-                        XIX Olimpíada de Matemática do Estado de Goiás
-                        <span class="tooltiptext">Mencionado na lista de participantes/resultados do Nível 3.</span>
+            <div class="timeline-line"></div>
+
+            <!-- Item 2010 -->
+            <div class="timeline-item left">
+                <div class="timeline-item-content">
+                    <h3 class="text-blue-600">2010: Olimpíada de Matemática 💡</h3>
+                    <p>Participação na XIX Olimpíada de Matemática do Estado de Goiás - Nível 3, organizada pela UFG.</p>
+                    <div class="tooltip mt-2 inline-block cursor-pointer text-sm text-gray-500 hover:text-blue-500">
+                        Mais detalhes
+                        <span class="tooltiptext">Confirmado em lista de participantes da Olimpíada de Matemática da UFG.</span>
                     </div>
-                    <div class="event-description">Participação em evento acadêmico promovido pelo Instituto de Matemática e Estatística da UFG.</div>
                 </div>
             </div>
 
-            <!-- Event 2017 -->
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <div class="year">2017 📅</div>
-                    <div class="event-name tooltip">
-                        Processo Seletivo da Liga de Inventores da UFG
-                        <span class="tooltiptext">Inscrição homologada para o Edital 2017-1.</span>
+            <!-- Item 2015 -->
+            <div class="timeline-item right">
+                <div class="timeline-item-content">
+                    <h3 class="text-blue-600">2015: Edital CEGRAF/UFG 📝</h3>
+                    <p>Mencionado no Resultado Inicial do Edital 14/2015 do CEGRAF/UFG, com pontuação de 6.79.</p>
+                    <div class="tooltip mt-2 inline-block cursor-pointer text-sm text-gray-500 hover:text-blue-500">
+                        Mais detalhes
+                        <span class="tooltiptext">Afiliado ao Centro Editorial Gráfico (CEGRAF) da UFG.</span>
                     </div>
-                    <div class="event-description">Inscrição homologada em processo seletivo para fomentar a criatividade e inovação.</div>
+                </div>
+            </div>
+
+            <!-- Item 2017 -->
+            <div class="timeline-item left">
+                <div class="timeline-item-content">
+                    <h3 class="text-blue-600">2017: Liga de Inventores da UFG 🔬</h3>
+                    <p>Inscrição homologada no Processo Seletivo da Liga de Inventores da UFG (Edital 2017-1).</p>
+                    <div class="tooltip mt-2 inline-block cursor-pointer text-sm text-gray-500 hover:text-blue-500">
+                        Mais detalhes
+                        <span class="tooltiptext">Confirma sua conexão com a inovação e pesquisa na UFG.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2022 -->
+            <div class="timeline-item right">
+                <div class="timeline-item-content">
+                    <h3 class="text-blue-600">2022: Possível Publicação Acadêmica 📚</h3>
+                    <p>Mencionado no site Escavador por uma publicação sobre "ANÁLISE QUALITATIVA DE ESCOAMENTO SOBRE CILINDROS DE...", orientada por Andreia Aoyagui Nascimento, na REVISTA UFG (ONLINE).</p>
+                    <div class="tooltip mt-2 inline-block cursor-pointer text-sm text-gray-500 hover:text-blue-500">
+                        Mais detalhes
+                        <span class="tooltiptext">Indica produção científica vinculada à Universidade Federal de Goiás.</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <p class="text-center text-gray-600 mt-8 text-sm">
-            Esta linha do tempo apresenta os registros confirmados de Elder Gualberto Alves em documentos oficiais da UFG.
-            Informações adicionais sobre seu perfil completo não puderam ser confirmadas devido à ambiguidade de nomes similares em fontes públicas diversas.
-        </p>
+        <div class="text-center mt-16 text-gray-600 text-sm">
+            <p>Este infográfico é baseado em informações públicas limitadas e visa apresentar a trajetória de Elder Gualberto Alves em conexão com a UFG.</p>
+        </div>
     </div>
+
+    <script>
+        // Simple JS for potential future interactivity if needed, currently for tooltips.
+        console.log("Infográfico da Linha do Tempo de Elder Gualberto Alves carregado.");
+    </script>
 </body>
 </html>
